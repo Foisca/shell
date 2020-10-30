@@ -1,4 +1,17 @@
-#include "head.h"
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <libgen.h>
+#include <pwd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#include "func.h"
 
 void getInput(char buff[])
 {
@@ -61,7 +74,7 @@ void showShell(void)
     fflush(stdout); // 刷新终端提示符
 }
 
-void getCmd(char* buff, char* cmd[])
+int getCmd(char* buff, char* cmd[])
 {
     int idx = 0;
     char* ret;
@@ -70,41 +83,19 @@ void getCmd(char* buff, char* cmd[])
     while (1) {
 	cmd[idx++] = ret;
 	if (NULL == ret) // 分割命令结束
-	    return;
+	    return idx - 1;
 	ret = strtok(NULL, " \t\n");
     }
-}
-
-void myLS(char* argu)
-{
-    DIR* dir;
-    struct dirent* ptr;
-    int count = 0;
-    char* dirname;
-    dir = opendir(".");
-    if (dir == NULL) {
-	printf("Open directory error\n");
-	return;
-    }
-    while ((ptr = readdir(dir)) != NULL) {
-	if (strcmp(ptr->d_name, ".") == 0 || strcmp(ptr->d_name, "..") == 0) {
-	} else {
-	    printf("%s\t", ptr->d_name);
-	    count++;
-	    if (count % 10 == 0) {
-		printf("\n");
-	    }
-	}
-	closedir(dir);
-	printf("\n");
-    }
+    return idx - 1;
 }
 
 void myECHO(char text[])
 {
     //echo
+    if (text == NULL) {
+	return;
+    }
     puts(text);
-    printf("\n");
 }
 
 void myCAT(char* filename)
@@ -180,3 +171,5 @@ void myWC(char* filename)
     fclose(fp);
     return;
 }
+
+
