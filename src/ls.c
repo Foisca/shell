@@ -104,7 +104,7 @@ void time_ch(time_t num) //通过秒数来计算日期
     printf("%2d月 %2d %2d:%2d ", month, day, hour, minute);
 }
 
-void myLS(int argc, char** argv) //主函数
+void myLs(int argc, char** argv) //主函数
 {
     char* dir_name = NULL;
     if (argc == 1) {

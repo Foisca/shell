@@ -1,0 +1,11 @@
+#include <stdio.h>
+void help_ls();
+void help_echo();
+void help_cat();
+void help_mkdir();
+void help_rm();
+void help_cd();
+void help_pwd();
+void help_wc();
+void help_touch();
+void help_clear();
