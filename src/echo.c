@@ -1,5 +1,5 @@
 #include "echo.h"
-
+#include <stdio.h>
 
 void myEcho(int argv, char* argc[])
 {
@@ -8,6 +8,10 @@ void myEcho(int argv, char* argc[])
     int len;	 //接收main函数后每个参数的长度
     char* p;	 //用来指向char数组中某个下标的地址
     char a[len]; //定义一个len长度的char数组
+    if (!argc[1]) {
+	printf("\n");
+	return;
+    }
     if (strcmp(argc[1], "-n") == 0) {
 	for (i = 2; i < argv; i++) {
 	    printf("%s ", argc[i]);
@@ -58,8 +62,8 @@ void myEcho(int argv, char* argc[])
 	for (i = 1; i < argv; i++) {
 	    printf("%s ", argc[i]);
 	    //if (i == argv - 2) {
-		//printf("%s\n", argc[argv - 1]);
-		//break;
+	    //printf("%s\n", argc[argv - 1]);
+	    //break;
 	    //}
 	}
 	printf("\n");

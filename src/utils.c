@@ -58,7 +58,10 @@ int getCmd(char* buff, char* cmd[])
 {
     int idx = 0;
     char* ret;
-
+    if (buff == NULL) {
+	cmd = NULL;
+	return 0;
+    }
     ret = strtok(buff, " \t\n"); // 分割命令
     while (1) {
 	cmd[idx++] = ret;
@@ -71,66 +74,50 @@ int getCmd(char* buff, char* cmd[])
 
 void showHello()
 {
-	FONT_BLU
+    FONT_BLU
     printf("         Welcome to CShell\n");
     printf("Type \"help\" to see detail operation of my CSehll\n");
+	printf("eg.:help ls\n");
     printf("Type \"exit\" to quit my CShell.\n");
-    printf("Type \"list\" to check the command list.\n");
-	FONT_WHI
+    printf("Type \"list\" to check the available command list.\n");
+    FONT_WHI
 }
 
-void showHelp()
+void showHelp(char cmd[])
 {
-    printf("                HELP\n");
-    printf("Type the number before command to check the usage of it.(0: exit)\n");
-    int flag;
-    while (1) {
-	  printf(">>");
-	scanf("%d", &flag);
-	switch (flag) {
-	case 1:
-	    help_ls();
-	    break;
-	case 2:
-	    help_echo();
-	    break;
-	case 3:
-	    help_cat();
-	    break;
-	case 4:
-	    help_mkdir();
-	    break;
-	case 5:
-	    help_rm();
-	    break;
-	case 6:
-	    help_cd();
-	    break;
-	case 7:
-	    help_pwd();
-	    break;
-	case 8:
-	    help_wc();
-	    break;
-	case 9:
-	    help_touch();
-	    break;
-	case 10:
-	    help_clear();
-	    break;
-	case 0:
-		goto end;
-	default:
-	    printf("Error input\n");
-	}
-    }
-end:
+    if (strcmp(cmd, "ls") == 0) {
+	help_ls();
+    } else if ((strcmp(cmd, "echo") == 0)) {
+	help_echo();
+    } else if ((strcmp(cmd, "cat") == 0)) {
+	help_cat();
+    } else if (strcmp(cmd, "mkdir") == 0) {
+	help_mkdir();
+    } else if (strcmp(cmd, "rm") == 0) {
+	help_rm();
+    } else if (strcmp(cmd, "cd") == 0) {
+	help_cd();
+    } else if (strcmp(cmd, "pwd") == 0) {
+	help_pwd();
+    } else if (strcmp(cmd, "wc") == 0) {
+	help_wc();
+    } else if (strcmp(cmd, "touch") == 0) {
+	help_touch();
+    } else if (strcmp(cmd, "clear") == 0) {
+	help_clear();
+    } else if (strcmp(cmd, "list") == 0) {
+	showComamndList();
+    } else if (strcmp(cmd, "exit") == 0) {
 	printf("Exit Help Successfully\n");
+	putchar('\n');
+    } else {
+	printf("Input Not Recognizeable\n");
+    }
 }
 
 void showComamndList()
 {
-	FONT_BLU
+    FONT_BLU
     printf("-------Commandlist--------\n");
     printf("|1.ls                    |\n");
     printf("|2.echo                  |\n");
@@ -142,6 +129,7 @@ void showComamndList()
     printf("|8.wc                    |\n");
     printf("|9.touch                 |\n");
     printf("|10.clear                |\n");
+    printf("|11.help                 |\n");
     printf("--------------------------\n");
-	FONT_WHI
+    FONT_WHI
 }

@@ -1,12 +1,12 @@
 #include "head.h"
+#include <stdio.h>
 #include <stdlib.h>
 int main()
 {
     showHello();
     while (1) {
 	char buff[1024] = { 0 };
-	char** cmd;
-	*cmd = (char*)malloc(sizeof(char) * 20);
+	char* cmd[20];
 	showShell();
 	getInput(buff);
 	int nums = getCmd(buff, cmd);
@@ -32,18 +32,17 @@ int main()
 	} else if (strcmp(cmd[0], "clear") == 0) {
 	    myClear();
 	} else if (strcmp(cmd[0], "help") == 0) {
-	    showHelp();
-	    cmd[0] = NULL;
+	    showHelp(cmd[1]);
 	} else if (strcmp(cmd[0], "list") == 0) {
 	    showComamndList();
 	} else if (strcmp(cmd[0], "exit") == 0) {
 	    printf("Exit CShell Successfully\n");
 	    putchar('\n');
 	    return 0;
+	} else if (NULL == cmd[0]) {
+	    continue;
 	} else {
 	    printf("Input Not Recognizeable\n");
-	}
-	free(*cmd);
-	printf("do1\n");
+	} //while(1) ends here
     }
 }

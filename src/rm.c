@@ -7,4 +7,5 @@ void myRm(char* filename)
 	return;
     }
     remove(filename);
+	printf("Remove file successfully\n");
 }
