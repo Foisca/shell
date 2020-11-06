@@ -1,5 +1,6 @@
 #include "utils.h"
 #include "help.c"
+#include <stdio.h>
 
 void getInput(char buff[])
 {
@@ -77,7 +78,7 @@ void showHello()
     FONT_BLU
     printf("         Welcome to CShell\n");
     printf("Type \"help\" to see detail operation of my CSehll\n");
-	printf("eg.:help ls\n");
+    printf("eg.:help ls\n");
     printf("Type \"exit\" to quit my CShell.\n");
     printf("Type \"list\" to check the available command list.\n");
     FONT_WHI
@@ -85,6 +86,10 @@ void showHello()
 
 void showHelp(char cmd[])
 {
+    if (!cmd) {
+	printf("\n");
+	return;
+    }
     if (strcmp(cmd, "ls") == 0) {
 	help_ls();
     } else if ((strcmp(cmd, "echo") == 0)) {
